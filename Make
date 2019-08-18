@@ -1,0 +1,37 @@
+#/bin/bash
+
+#Unpacking files
+
+gzip -cd filename | tar xvf -
+
+# Using Make for the build process
+
+Makefile # Compiles and builds the binaries by invoking cc or gcc. 
+
+make install # installing files in proper directories /usr/bin or /usr/local/bin
+make clean # remove stale objects
+make -n # Dry run
+
+# Check to make sure your root before running a comma nd in bash. Then use make to build.
+uid=`id -u`
+
+if [[ $EUID -ne 0 ]]; then
+	echo "Must be root to run script"
+	exit 1
+	
+	elif [[ $EUID == 0 ]] then
+		xmkmf -a 
+		make clean
+		make Makefiles
+		make includes
+		make depend
+		make
+	else 
+	echo "Error , wrong entry"
+fi
+
+
+
+
+
+
